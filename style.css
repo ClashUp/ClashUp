@@ -97,6 +97,20 @@ h2::after {
   100% { transform: translateX(0); }
 }
 
+/* Mobile view fix */
+@media (max-width: 480px) {
+  .referral-code {
+    max-width: 100px;      /* smaller width for phones */
+    padding: 10px 8px;    /* reduce padding */
+    font-size: 1rem;      /* slightly smaller font */
+  }
+  
+  .referral-code .highlight-code {
+    font-size: 1.2rem;    /* smaller but still visible */
+  }
+}
+
+
 /* Header/Navbar */
 .navbar {
     background-color: var(--bg-dark);
