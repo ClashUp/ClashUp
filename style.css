@@ -279,19 +279,6 @@ h2::after {
     font-size: 1.1em;
     color: rgba(255, 255, 255, 0.8);
 }
-.referral-code {
-    margin: 20px auto 40px auto;
-    padding: 15px 20px;
-    max-width: 400px;
-    background-color: #fff7f7; /* light pink background */
-    border: 2px solid #dc2626; /* red border */
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-family: monospace, monospace;
-    color: #333;
-    text-align: center;
-    animation: shake 0.6s ease-in-out infinite;
-}
 
 /* New Section: App Features */
 .features-app-section {
