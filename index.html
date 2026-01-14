@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClashUp</title>
+    <title>ClashUp - eSports Gaming Platform</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="navbar">
+    <header class="navbar reveal">
         <div class="container header-content">
             <div class="logo">
-                <img src="images/images/logo.png" alt="ClashUp Logo">
+                <img src="images/images/logo.png" alt="ClashUp Logo" class="logo-3d">
                 <h1>Clash Up</h1>
             </div>
             <button class="hamburger" aria-label="Toggle navigation">
@@ -19,115 +22,189 @@
             </button>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#stats">Statistics</a></li>
-                    <li><a href="#features-app">App Features</a></li>
-                    <li><a href="#screenshots">Screenshots</a></li>
-                    <li><a href="#download">Download</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#stats" class="nav-link">Statistics</a></li>
+                    <li><a href="#features-app" class="nav-link">Features</a></li>
+                    <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
+                    <li><a href="#download" class="nav-link">Download</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section id="home" class="hero-section">
+        <section id="home" class="hero-section parallax" data-rate="0.3">
+            <div class="hero-overlay"></div>
             <div class="container hero-content">
-                <div class="hero-text">
-                    <h2>Clash Up</h2>
-                    <p>Join the ClashUp revolution and connect with the ultimate eSports community. Download the app now to take your competitive gaming journey to the next level!</p>
-                    <a href="https://ga-fs.primexop.com/5005/androidBuilds/clashupV1.apk" class="btn-download" download>DOWNLOAD APP</a>
+                <div class="hero-text reveal">
+                    <h2 class="hero-title">Clash Up</h2>
+                    <p class="hero-subtitle">Join the ClashUp revolution and connect with the ultimate eSports community.</p>
+                    <p class="hero-description">Download the app now to take your competitive gaming journey to the next level!</p>
+                    <a href="https://ga-fs.primexop.com/5005/androidBuilds/clashupV1.apk" class="btn-download btn-3d" download>
+                        <span class="btn-content">
+                            <i class="fas fa-download"></i>
+                            DOWNLOAD APP
+                        </span>
+                        <span class="btn-glow"></span>
+                    </a>
                 </div>
-                <div class="hero-image">
-                    <img src="images/images/hero-mockup.png" alt="App Screenshot Mockup">
+                <div class="hero-image reveal">
+                    <div class="phone-mockup float-animation">
+                        <img src="images/images/hero-mockup.png" alt="ClashUp App Screenshot" class="mockup-img">
+                        <div class="mockup-frame"></div>
+                    </div>
                 </div>
             </div>
+            <div class="hero-particles"></div>
         </section>
 
         <section id="about" class="about-section">
             <div class="container">
-                <h2>About ClashUp</h2>
-                <p class="tagline">We Host Paid Tournaments for different Games. Check Out our application for our Pricing Details</p>
+                <h2 class="section-title reveal">About ClashUp</h2>
+                <p class="tagline reveal">We Host Paid Tournaments for different Games. Check Out our application for our Pricing Details</p>
 
-                <div class="about-item">
-                    <div class="icon-circle"><i class="fas fa-play"></i></div>
-                    <h3>Fair Play</h3>
-                    <p>All matches are conducted fairly. Everyone got his reward according to his performance in game</p>
-                </div>
+                <div class="about-grid">
+                    <div class="about-item card-3d reveal">
+                        <div class="icon-circle">
+                            <i class="fas fa-play"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3>Fair Play</h3>
+                        <p>All matches are conducted fairly. Everyone gets their reward according to their performance in game.</p>
+                        <div class="about-hover-effect"></div>
+                    </div>
 
-                <div class="about-item">
-                    <div class="icon-circle"><i class="fas fa-tachometer-alt"></i></div>
-                    <h3>Fast Performance</h3>
-                    <p>ClashUp built using the latest technology and taking special care of its performance so the user never hesitates for its performance.</p>
-                </div>
+                    <div class="about-item card-3d reveal">
+                        <div class="icon-circle">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3>Fast Performance</h3>
+                        <p>ClashUp is built using the latest technology with special care for performance so users never hesitate.</p>
+                        <div class="about-hover-effect"></div>
+                    </div>
 
-                <div class="about-item">
-                    <div class="icon-circle"><i class="fas fa-dollar-sign"></i></div>
-                    <h3>Earn Real Money & Uc Double Diamond Top up</h3>
-                    <p>There is no points system or token or score or something else. people directly can earn real money with the ClashUp app</p>
+                    <div class="about-item card-3d reveal">
+                        <div class="icon-circle">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3>Earn Real Money</h3>
+                        <p>No points system or tokens. Players directly earn real money and UC Double Diamond top-ups with ClashUp.</p>
+                        <div class="about-hover-effect"></div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="stats" class="stats-section">
+            <div class="stats-overlay"></div>
             <div class="container">
-                <div class="stat-item">
-                    <div class="stat-icon-circle"><i class="fas fa-robot"></i></div>
-                    <div class="stat-number" data-target="648">0</div>
-                    <p>Tournament Played</p>
-                </div>
+                <div class="stats-grid">
+                    <div class="stat-item card-3d reveal">
+                        <div class="stat-icon-circle">
+                            <i class="fas fa-robot"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <div class="stat-number" data-target="648">0</div>
+                        <p>Tournaments Played</p>
+                        <div class="stat-bar">
+                            <div class="stat-progress"></div>
+                        </div>
+                    </div>
 
-                <div class="stat-item">
-                    <div class="stat-icon-circle"><i class="fas fa-users"></i></div>
-                    <div class="stat-number" data-target="7835">0</div>
-                    <p>Total Participants</p>
-                </div>
+                    <div class="stat-item card-3d reveal">
+                        <div class="stat-icon-circle">
+                            <i class="fas fa-users"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <div class="stat-number" data-target="7835">0</div>
+                        <p>Total Participants</p>
+                        <div class="stat-bar">
+                            <div class="stat-progress"></div>
+                        </div>
+                    </div>
 
-                <div class="stat-item">
-                    <div class="stat-icon-circle"><i class="fas fa-dollar-sign"></i></div>
-                    <div class="stat-number" data-target="15350">0</div>
-                    <p>Winning Amount</p>
-                </div>
+                    <div class="stat-item card-3d reveal">
+                        <div class="stat-icon-circle">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <div class="stat-number" data-target="15350">0</div>
+                        <p>Winning Amount</p>
+                        <div class="stat-bar">
+                            <div class="stat-progress"></div>
+                        </div>
+                    </div>
 
-                <div class="stat-item">
-                    <div class="stat-icon-circle"><i class="fas fa-gift"></i></div>
-                    <div class="stat-number" data-target="9480">0</div>
-                    <p>Rewards</p>
+                    <div class="stat-item card-3d reveal">
+                        <div class="stat-icon-circle">
+                            <i class="fas fa-gift"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <div class="stat-number" data-target="9480">0</div>
+                        <p>Rewards Distributed</p>
+                        <div class="stat-bar">
+                            <div class="stat-progress"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="features-app" class="features-app-section">
             <div class="container">
+                <h2 class="section-title reveal">App Features</h2>
+                
                 <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-hd"></i></div>
-                        <div class="feature-text">
-                            <h3>Retina ready</h3>
-                            <p>All the design and color combination are eye catching with current trend</p>
+                    <div class="feature-item card-3d reveal">
+                        <div class="feature-icon">
+                            <i class="fas fa-hd"></i>
+                            <div class="icon-glow"></div>
                         </div>
+                        <div class="feature-text">
+                            <h3>Retina Ready</h3>
+                            <p>All designs and color combinations are eye-catching with current trends and optimized for retina displays.</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-high-resolution"></i></div>
+                    
+                    <div class="feature-item card-3d reveal">
+                        <div class="feature-icon">
+                            <i class="fas fa-high-resolution"></i>
+                            <div class="icon-glow"></div>
+                        </div>
                         <div class="feature-text">
                             <h3>High Resolution</h3>
-                            <p>Provide a best Resolution for app and admin panel</p>
+                            <p>Provides the best resolution for both the app and admin panel ensuring crisp visuals on all devices.</p>
                         </div>
+                        <div class="feature-hover-effect"></div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    
+                    <div class="feature-item card-3d reveal">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                            <div class="icon-glow"></div>
+                        </div>
                         <div class="feature-text">
                             <h3>Clean Codes</h3>
-                            <p>Coding with latest technology and frameworks.</p>
+                            <p>Built with latest technology and frameworks ensuring optimal performance and easy maintenance.</p>
                         </div>
+                        <div class="feature-hover-effect"></div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                        <div class="feature-text">
-                            <h3>Helping Supports</h3>
-                            <p>Always ready to help, don't hesitate to contact us. wgsyrme on inst Just contact</p>
+                    
+                    <div class="feature-item card-3d reveal">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                            <div class="icon-glow"></div>
                         </div>
+                        <div class="feature-text">
+                            <h3>24/7 Support</h3>
+                            <p>Always ready to help, don't hesitate to contact us. Reach out on Instagram: @wgsyrme</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
                     </div>
                 </div>
             </div>
@@ -135,47 +212,136 @@
 
         <section id="screenshots" class="screenshot-section">
             <div class="container">
-                <h2>Screenshots</h2>
-                <div class="screenshot-slider">
-                    <div class="slider-wrapper">
-                        <div class="screenshot-slide">
-                            <img src="images/ot-login.png" alt="App Screenshot 1 - Login Page">
+                <h2 class="section-title reveal">Screenshots</h2>
+                
+                <div class="screenshot-container reveal">
+                    <div class="screenshot-slider card-3d">
+                        <div class="slider-wrapper">
+                            <div class="screenshot-slide">
+                                <div class="screenshot-card">
+                                    <img src="images/ot-login.png" alt="App Login Page" class="screenshot-img">
+                                    <div class="screenshot-overlay">
+                                        <h3>Secure Login</h3>
+                                        <p>Easy and secure authentication</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="screenshot-slide">
+                                <div class="screenshot-card">
+                                    <img src="images/screenshot-t.png" alt="Tournament Page" class="screenshot-img">
+                                    <div class="screenshot-overlay">
+                                        <h3>Tournaments</h3>
+                                        <p>Join live tournaments</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="screenshot-slide">
+                                <div class="screenshot-card">
+                                    <img src="images/sce-3.png" alt="Game Dashboard" class="screenshot-img">
+                                    <div class="screenshot-overlay">
+                                        <h3>Dashboard</h3>
+                                        <p>Track your progress</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="screenshot-slide">
-                            <img src="images/screenshot-t.png" alt="App Screenshot 2 - Tournament Page">
-                        </div>
-                        <div class="screenshot-slide">
-                            <img src="images/sce-3.png" alt="App Screenshot 3">
+                        
+                        <div class="slider-controls">
+                            <button class="slider-btn prev-btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div class="slider-dots">
+                                <div class="dot active"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <button class="slider-btn next-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="slider-dots">
-                        </div>
                 </div>
             </div>
         </section>
 
         <section id="download" class="download-section">
+            <div class="download-overlay"></div>
             <div class="container">
-                <h2>Download Available</h2>
-                <p>Now play and earn by downloading latest version of ClashUp</p>
-                <a href="https://ga-fs.primexop.com/5005/androidBuilds/clashupV1.apk" class="btn-app-download" download>
-                    <i class="fab fa-android"></i> <br> Download Now
-                </a>
+                <div class="download-content reveal">
+                    <h2 class="section-title">Download Available</h2>
+                    <p class="download-text">Now play and earn by downloading the latest version of ClashUp</p>
+                    
+                    <div class="download-buttons">
+                        <a href="https://ga-fs.primexop.com/5005/androidBuilds/clashupV1.apk" class="btn-app-download btn-3d" download>
+                            <div class="btn-inner">
+                                <i class="fab fa-android"></i>
+                                <div class="btn-text">
+                                    <span class="btn-title">Download Now</span>
+                                    <span class="btn-subtitle">Latest Version 1.0</span>
+                                </div>
+                            </div>
+                            <div class="btn-glow"></div>
+                            <div class="btn-particles"></div>
+                        </a>
+                    </div>
+                    
+                    <div class="download-features">
+                        <div class="feature-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>100% Safe</span>
+                        </div>
+                        <div class="feature-badge">
+                            <i class="fas fa-bolt"></i>
+                            <span>Fast Install</span>
+                        </div>
+                        <div class="feature-badge">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Auto Updates</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer id="contact">
         <div class="container footer-content">
-            <div class="social-icons">
-                <a href="https://www.instagram.com/clashupofficial" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@clashupesports" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <div class="footer-logo reveal">
+                <img src="images/images/logo.png" alt="ClashUp Logo">
+                <h2>Clash Up</h2>
+                <p class="footer-tagline">Your Ultimate eSports Platform</p>
             </div>
-            <p>© 2025 ClashUp. All rights reserved.</p>
-            <p>Visit us at: <a href="https://clashUp.xyz" target="_blank">ClashUp</a></p>
+            
+            <div class="social-icons reveal">
+                <a href="https://www.instagram.com/clashupofficial" target="_blank" class="social-icon btn-3d" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span class="social-tooltip">Instagram</span>
+                </a>
+                <a href="https://youtube.com/@clashupesports" target="_blank" class="social-icon btn-3d" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                    <span class="social-tooltip">YouTube</span>
+                </a>
+                <a href="https://clashUp.xyz" target="_blank" class="social-icon btn-3d" aria-label="Website">
+                    <i class="fas fa-globe"></i>
+                    <span class="social-tooltip">Website</span>
+                </a>
+                <a href="mailto:support@clashup.xyz" class="social-icon btn-3d" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                    <span class="social-tooltip">Email Us</span>
+                </a>
+            </div>
+            
+            <div class="footer-info reveal">
+                <p>© 2025 ClashUp. All rights reserved.</p>
+                <p>Visit us at: <a href="https://clashUp.xyz" target="_blank" class="footer-link">ClashUp.xyz</a></p>
+                <p class="footer-credits">Designed with <i class="fas fa-heart"></i> for Gamers</p>
+            </div>
         </div>
     </footer>
 
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>
