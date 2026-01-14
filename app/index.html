@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRX TOURNAMENTS</title>
+    
+    <meta name="theme-color" content="#1e293b"/>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://placehold.co/192x192/4f46e5/ffffff?text=MRX">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
+        .font-teko { font-family: 'Teko', sans-serif; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .gradient-header { background: linear-gradient(to right, #4f46e5, #a855f7); }
+        .card-bg { background-color: #334155; }
+        .input-dark { background-color: #374151; border: 1px solid #4b5563; }
+        .btn-primary { background-color: #4f46e5; }
+        .btn-secondary { background-color: #10b981; }
+        .btn-accent { background-color: #ec4899; }
+        .nav-item.active { color: #6366f1; border-top: 2px solid #6366f1; }
+        .modal { display: none; }
+        .modal.flex { display: flex; }
+        .slot-progress-bg { background-color: #475569; }
+        .slot-progress-fg { background: linear-gradient(to right, #10b981, #34d399); }
+        #messageBox { transition: opacity 0.3s ease, transform 0.3s ease; transform: translateY(-20px); opacity: 0; pointer-events: none; }
+        #messageBox.show { transform: translateY(0); opacity: 1; }
+    </style>
+</head>
+<body class="text-gray-100 max-w-lg mx-auto">
+    <div id="appContainer" class="min-h-screen shadow-lg relative overflow-hidden">
+        <div id="messageBox" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 p-3 rounded-lg shadow-xl text-white text-sm font-medium"><span id="messageText"></span></div>
+        <div id="loadingSpinner" class="fixed inset-0 bg-black bg-opacity-75 z-50 items-center justify-center" style="display: none;">
+             <svg class="animate-spin h-10 w-10 text-white" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        </div>
+                <div id="authPage" class="page">
+            <div id="loginSubPage" class="page active p-6 pt-16 min-h-screen"><div class="text-center mb-10"><i class="fa-solid fa-dragon text-6xl text-indigo-400"></i><h1 class="text-5xl font-teko font-bold mt-2">MRX</h1></div><h2 class="text-2xl font-semibold mb-6 text-center">Login to Your Account</h2><form id="loginForm" class="space-y-5"><input type="email" id="loginEmail" class="w-full p-3 rounded-lg input-dark" placeholder="Email" required><input type="password" id="loginPassword" class="w-full p-3 rounded-lg input-dark" placeholder="Password" required><button type="submit" class="w-full p-3 rounded-lg btn-primary font-bold">Login</button></form><div class="text-center mt-6"><p>Don't have an account? <a href="#" id="showRegisterLink" class="text-indigo-400 font-semibold">Register</a></p></div></div>
+            <div id="registerSubPage" class="page p-6 pt-12 min-h-screen"><div class="text-center mb-8"><i class="fa-solid fa-dragon text-6xl text-indigo-400"></i><h1 class="text-5xl font-teko font-bold mt-2">MRX</h1></div><h2 class="text-2xl font-semibold mb-6 text-center">Create New Account</h2><form id="registerForm" class="space-y-4"><input type="text" id="registerName" class="w-full p-3 rounded-lg input-dark" placeholder="Username (e.g., Ansh)" required><input type="email" id="registerEmail" class="w-full p-3 rounded-lg input-dark" placeholder="Email" required><input type="password" id="registerPassword" class="w-full p-3 rounded-lg input-dark" placeholder="Password" required><input type="text" id="registerReferralCode" class="w-full p-3 rounded-lg input-dark" placeholder="Referral Code (Optional)"><button type="submit" class="w-full p-3 rounded-lg btn-secondary font-bold">Register</button></form><div class="text-center mt-6"><p>Already have an account? <a href="#" id="showLoginLink" class="text-indigo-400 font-semibold">Login</a></p></div></div>
+        </div>
+                <div id="mainPage" class="page pb-24">
+            <header class="p-4 flex justify-between items-center shadow-lg gradient-header sticky top-0 z-10"><h1 class="text-3xl font-teko font-bold text-white tracking-wide">MRX TOURNAMENTS</h1><div class="bg-gray-900 bg-opacity-50 rounded-full px-4 py-1 text-sm font-medium flex items-center text-yellow-300 shadow-md"><i class="fa-solid fa-coins mr-2"></i><span id="navBalance">0.00</span></div></header>
+            <div id="announcementBar" class="bg-gray-700 text-gray-200 px-4 py-2 text-sm overflow-hidden whitespace-nowrap relative"><span class="font-bold mr-2">Announcement:</span><span id="announcementText" class="inline-block animate-marquee">Welcome to MRX TOURNAMENTS!</span></div>
+            <style> @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } } .animate-marquee { animation: marquee 15s linear infinite; will-change: transform; } </style>
+            <div class="p-4"><img id="specialOfferImage" src="https://placehold.co/600x200/a855f7/ffffff?text=Special+Offer" alt="Special Offer" class="w-full rounded-lg shadow-lg"></div>
+            <div class="px-4 grid grid-cols-4 gap-4 text-center text-xs">
+                <button class="nav-button p-2 rounded-lg card-bg shadow-md" data-target="myMatchesPage"><i class="fa-solid fa-gamepad text-2xl mb-1 text-indigo-300"></i><span class="block">My Matches</span></button>
+                <button class="nav-button p-2 rounded-lg card-bg shadow-md" data-target="walletPage"><i class="fa-solid fa-wallet text-2xl mb-1 text-green-300"></i><span class="block">My Wallet</span></button>
+                <button class="nav-button p-2 rounded-lg card-bg shadow-md" data-target="rankingPage"><i class="fa-solid fa-trophy text-2xl mb-1 text-yellow-300"></i><span class="block">Top Players</span></button>
+                <button class="nav-button p-2 rounded-lg card-bg shadow-md" data-target="supportPage"><i class="fa-solid fa-headset text-2xl mb-1 text-cyan-300"></i><span class="block">Support</span></button>
+            </div>
+            <div id="mainContentContainer" class="relative p-4">
+                <div id="playPage" class="page active"><h2 class="text-2xl font-teko font-bold mb-3 tracking-wide">Live Tournaments</h2><div id="tournamentsList" class="space-y-4"><p class="text-gray-400 text-center py-10">No live tournaments right now. Check back soon!</p></div></div>
+                                <div id="rankingPage" class="page"><div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-teko font-bold tracking-wide">Top Players</h2><button class="nav-back text-sm text-indigo-300" data-target="playPage"><i class="fa-solid fa-arrow-left mr-1"></i> Back</button></div><div id="rankingList" class="space-y-2"><p class="text-gray-400 text-center py-10">Loading ranking...</p></div></div>
+                <div id="walletPage" class="page"><div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-teko font-bold tracking-wide">My Wallet</h2><button class="nav-back text-sm text-indigo-300" data-target="accountPage"><i class="fa-solid fa-arrow-left mr-1"></i> Back</button></div><div class="card-bg p-5 rounded-lg mb-6 shadow-lg text-center"><span class="text-sm text-gray-300">Total Balance</span><h3 class="text-4xl font-bold my-2 flex items-center justify-center"><i class="fa-solid fa-coins text-yellow-300 mr-2"></i><span id="walletTotalBalance">0.00</span></h3><div class="grid grid-cols-2 gap-4 mt-4 text-left"><div class="bg-gray-700 p-3 rounded-lg"><span class="text-xs text-gray-400">Join Coins</span><span id="walletJoinMoney" class="block text-lg font-semibold">0.00</span></div><div class="bg-gray-700 p-3 rounded-lg"><span class="text-xs text-gray-400">Winning Coins</span><span id="walletWinMoney" class="block text-lg font-semibold">0.00</span></div></div><div class="grid grid-cols-2 gap-4 mt-6"><button id="showAddCoinsPage" class="p-3 rounded-lg btn-secondary font-bold"><i class="fa-solid fa-plus mr-1"></i> Add Coins</button><button id="showWithdrawPage" class="p-3 rounded-lg btn-primary font-bold"><i class="fa-solid fa-arrow-up-from-bracket mr-1"></i> Withdraw</button></div></div><h3 class="text-lg font-semibold mb-3">Transaction History</h3><div id="walletHistoryContainer" class="text-center text-gray-400 p-10 card-bg rounded-lg"><i class="fa-solid fa-clock-rotate-left text-4xl mb-3"></i><p>No transactions yet.</p></div></div>
+                <div id="myMatchesPage" class="page"><div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-teko font-bold tracking-wide">My Matches</h2><button class="nav-back text-sm text-indigo-300" data-target="accountPage"><i class="fa-solid fa-arrow-left mr-1"></i> Back</button></div><div id="myMatchesList" class="space-y-4"><p class="text-gray-400 text-center py-10">You haven't joined any matches yet.</p></div></div>
+                <div id="supportPage" class="page"><div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-teko font-bold tracking-wide">Customer Support</h2><button class="nav-back text-sm text-indigo-300" data-target="accountPage"><i class="fa-solid fa-arrow-left mr-1"></i> Back</button></div><div id="supportContent" class="card-bg p-5 rounded-lg shadow-lg"><p class="text-gray-300">Loading support info...</p></div></div>
+                <div id="referPage" class="page"><div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-teko font-bold tracking-wide">Refer & Earn</h2><button class="nav-back text-sm text-indigo-300" data-target="accountPage"><i class="fa-solid fa-arrow-left mr-1"></i> Back</button></div><div class="card-bg p-5 rounded-lg shadow-lg text-center"><h3 class="text-xl font-semibold mb-3">Your Personal Referral Code</h3><div class="bg-gray-800 border-2 border-dashed border-gray-600 rounded-lg p-4 text-2xl font-bold tracking-widest text-yellow-300" id="userReferralCode">LOADING...</div><button id="copyReferralCodeBtn" class="mt-4 p-2 rounded-lg btn-primary w-full"><i class="fa-solid fa-copy mr-2"></i> Copy Code</button><hr class="border-gray-600 my-6"><div id="referContent" class="text-left"><p class="text-gray-300">Loading referral info...</p></div></div></div>
+            </div>
+            <nav id="bottomNav" class="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-gray-800 border-t border-gray-600 grid grid-cols-3 text-center z-10"><button class="nav-item p-4 text-gray-400" data-target="rankingPage"><i class="fa-solid fa-trophy text-xl"></i><span class="block text-xs mt-1">Ranking</span></button><button class="nav-item p-4 text-gray-400 active" data-target="playPage"><i class="fa-solid fa-play-circle text-xl"></i><span class="block text-xs mt-1">Play</span></button><button class="nav-item p-4 text-gray-400" data-target="accountPage"><i class="fa-solid fa-user-circle text-xl"></i><span class="block text-xs mt-1">Account</span></button></nav>
+        </div>
+        <div id="accountPage" class="page p-4 pb-24"><div class="card-bg p-5 rounded-lg mb-6 shadow-lg text-center relative"><img src="https://placehold.co/100x100/4f46e5/ffffff?text=M" alt="Profile" class="w-24 h-24 rounded-full mx-auto border-4 border-indigo-400"><h2 id="accountUsername" class="text-2xl font-bold mt-4">Username</h2><p id="accountEmail" class="text-sm text-gray-400">user@example.com</p><div class="flex justify-around mt-6 pt-4 border-t border-gray-700"><div><span id="statMatches" class="block font-bold">0</span><span class="text-xs">Matches</span></div><div><span id="statKills" class="block font-bold">0</span><span class="text-xs">Kills</span></div><div><span id="statWon" class="block font-bold"><i class="fa-solid fa-coins text-yellow-300 mr-1"></i>0</span><span class="text-xs">Won</span></div></div></div><div class="space-y-3"><button class="nav-button bg-gray-800 p-4 rounded-lg flex items-center justify-between shadow w-full" data-target="myMatchesPage"><div><i class="fa-solid fa-gamepad text-lg text-gray-300 mr-4 w-6 text-center"></i><span class="font-medium">My Matches</span></div><i class="fa-solid fa-chevron-right text-gray-500"></i></button><button class="nav-button bg-gray-800 p-4 rounded-lg flex items-center justify-between shadow w-full" data-target="walletPage"><div><i class="fa-solid fa-wallet text-lg text-indigo-300 mr-4 w-6 text-center"></i><span class="font-medium">My Wallet</span></div><i class="fa-solid fa-chevron-right text-gray-500"></i></button><button class="nav-button bg-gray-800 p-4 rounded-lg flex items-center justify-between shadow w-full" data-target="referPage"><div><i class="fa-solid fa-users text-lg text-green-300 mr-4 w-6 text-center"></i><span class="font-medium">Refer & Earn</span></div><i class="fa-solid fa-chevron-right text-gray-500"></i></button><button class="nav-button bg-gray-800 p-4 rounded-lg flex items-center justify-between shadow w-full" data-target="supportPage"><div><i class="fa-solid fa-headset text-lg text-cyan-300 mr-4 w-6 text-center"></i><span class="font-medium">Customer Support</span></div><i class="fa-solid fa-chevron-right text-gray-500"></i></button><button id="logoutButton" class="w-full mt-6 p-3 rounded-lg btn-accent font-bold">Logout</button></div></div>
+        <div id="addCoinsPage" class="page p-4 min-h-screen"><header class="flex items-center mb-6"><button class="nav-back" data-target="walletPage"><i class="fa-solid fa-arrow-left text-xl"></i></button><h1 class="text-2xl font-teko font-bold ml-4 tracking-wide">Add Coins</h1></header><div class="bg-gray-800 p-5 rounded-lg mb-6 shadow-lg"><label for="addAmount" class="block text-sm font-medium text-gray-300 mb-2">Enter Amount (1 Coin = 1 Rupee)</label><input type="number" id="addAmount" class="w-full p-4 rounded-lg input-dark text-2xl font-bold" placeholder="0" min="10" max="50000"><p class="text-xs text-gray-400 mt-1">Min: 10 Coins, Max: 50,000 Coins</p><div class="grid grid-cols-4 gap-3 mt-4"><button class="add-amount-btn p-2 bg-gray-700 rounded-lg" data-amount="10">+ 10</button><button class="add-amount-btn p-2 bg-gray-700 rounded-lg" data-amount="50">+ 50</button><button class="add-amount-btn p-2 bg-gray-700 rounded-lg" data-amount="100">+ 100</button><button class="add-amount-btn p-2 bg-gray-700 rounded-lg" data-amount="500">+ 500</button></div><button id="goToPayBtn" class="w-full p-3 mt-6 rounded-lg btn-secondary font-bold">Next</button></div></div>
+        <div id="scanToPayPage" class="page p-4 min-h-screen"><header class="flex items-center mb-6"><button class="nav-back" data-target="addCoinsPage"><i class="fa-solid fa-arrow-left text-xl"></i></button><h1 class="text-2xl font-teko font-bold ml-4 tracking-wide">Scan to Pay</h1></header><div class="bg-gray-800 p-5 rounded-lg shadow-lg text-center"><p class="text-lg">Please pay exactly: <span id="paymentAmount" class="text-2xl font-bold text-yellow-300">0 Coins</span></p><img id="paymentQRCode" src="https://placehold.co/300x300/ffffff/1e293b?text=QR+Code+Loading" alt="QR Code" class="w-full max-w-xs mx-auto rounded-lg my-4"><p class="text-lg font-semibold">Or pay to UPI ID:</p><p id="paymentUpiId" class="text-md text-gray-300 mb-4">upi@example.com</p><form id="paymentConfirmForm"><label for="transactionId" class="block text-sm font-medium text-gray-300 mb-2">Enter UTR / Transaction ID (12-digit)</label><input type="text" id="transactionId" class="w-full p-3 rounded-lg input-dark text-center" placeholder="Enter Transaction ID" required minlength="12" maxlength="12"><button type="submit" class="w-full p-3 mt-4 rounded-lg btn-secondary font-bold">Submit Request</button></form></div></div>
+                <div id="withdrawPage" class="page p-4 min-h-screen"><header class="flex items-center mb-6"><button class="nav-back" data-target="walletPage"><i class="fa-solid fa-arrow-left text-xl"></i></button><h1 class="text-2xl font-teko font-bold ml-4 tracking-wide">Withdraw Coins</h1></header><div class="bg-gray-800 p-5 rounded-lg shadow-lg"><p class="text-sm text-gray-400 mb-4">Available to withdraw: <span id="withdrawableBalance" class="font-semibold text-green-400"><i class="fa-solid fa-coins mr-1"></i>0.00</span></p><form id="withdrawForm" class="space-y-4"><input type="text" id="withdrawUpi" class="w-full p-3 rounded-lg input-dark" placeholder="Enter UPI ID (e.g., you@upi)" required><input type="number" id="withdrawAmount" class="w-full p-3 rounded-lg input-dark" placeholder="Enter Amount (Min: 50 Coins)" required min="50"><button type="submit" class="w-full p-3 rounded-lg btn-primary font-bold">Submit Request</button></form></div></div>
+    </div>
+    <div id="joinModal" class="modal fixed inset-0 z-40 items-center justify-center bg-black bg-opacity-75 p-4"><div class="card-bg p-6 rounded-lg shadow-xl w-full max-w-sm"><h3 class="text-2xl font-teko font-bold mb-4" id="joinModalTitle">Join Tournament</h3><p class="mb-2">You are about to join <strong id="joinModalTourneyName">...</strong></p><p class="mb-4">Entry Fee: <strong id="joinModalFee" class="text-xl text-yellow-300">... Coins</strong></p><form id="joinForm"><label for="joinGameName" class="block text-sm font-medium text-gray-300 mb-2">Enter Your Game Name (IGN)</label><input type="text" id="joinGameName" class="w-full p-3 rounded-lg input-dark" placeholder="Your In-Game Name" required><input type="hidden" id="joinTournamentId"><div class="grid grid-cols-2 gap-4 mt-6"><button type="button" class="modal-close p-3 rounded-lg bg-gray-500 font-bold" data-target="joinModal">Cancel</button><button type="submit" class="p-3 rounded-lg btn-secondary font-bold">Confirm & Join</button></div></form></div></div>
+
+    <script>
+        const manifest = { "name": "MRX TOURNAMENTS", "short_name": "MRX", "start_url": ".", "display": "standalone", "background_color": "#0f172a", "theme_color": "#1e293b", "description": "MRX Tournament App", "icons": [ { "src": "https://placehold.co/192x192/4f46e5/ffffff?text=MRX", "sizes": "192x192", "type": "image/png" }, { "src": "https://placehold.co/512x512/4f46e5/ffffff?text=MRX", "sizes": "512x512", "type": "image/png" } ] };
+        document.querySelector('link[rel="manifest"]').setAttribute('href', URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/json'})));
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => { console.log('Service Worker registered successfully:', registration); })
+                .catch(error => { console.log('Service Worker registration failed:', error); });
+        }
+    </script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, addDoc, collection, query, where, getDocs, onSnapshot, serverTimestamp, Timestamp, orderBy, limit, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        
+        // ===== CONFIGURATION EMBEDDED HERE =====
+        const firebaseConfig = {
+          apiKey: "AIzaSyDnniwqJLuVuM4EjfJUNEsGKPa6Mw8A2FI",
+          authDomain: "wukong-tournament.firebaseapp.com",
+          projectId: "wukong-tournament",
+          storageBucket: "wukong-tournament.firebasestorage.app",
+          messagingSenderId: "3149415167",
+          appId: "1:3149415167:web:ca1257f173124741eac2ca",
+          measurementId: "G-BTHRV0H027"
+        };
+        // =======================================
+
+        let db, auth, app, currentUserId = null, currentUserData = null, appSettings = {}, joinedTournamentIds = new Set();
+        let unsubscribers = [];
+
+        try { 
+            app = initializeApp(firebaseConfig); 
+            auth = getAuth(app); 
+            db = getFirestore(app); 
+        } 
+        catch (e) { console.error("Firebase Init Error:", e); showMessage("Server connection failed.", "error"); }
+
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const allPages = document.querySelectorAll('#appContainer > .page');
+        const mainSubPages = document.querySelectorAll('#mainContentContainer .page');
+        const bottomNavItems = document.querySelectorAll('.nav-item');
+        
+        function showPage(pageId, isSubPage = false) {
+            const targetEl = document.getElementById(pageId); if (!targetEl) return;
+            if (isSubPage) { mainSubPages.forEach(p => p.classList.remove('active')); } 
+            else { allPages.forEach(p => p.classList.remove('active')); }
+            targetEl.classList.add('active');
+            
+            bottomNavItems.forEach(item => {
+                let shouldBeActive = false;
+                if (item.dataset.target === 'accountPage' && pageId === 'accountPage') shouldBeActive = true;
+                else if (isSubPage && item.dataset.target === 'playPage') shouldBeActive = true;
+                else if (item.dataset.target === pageId) shouldBeActive = true;
+                if(pageId === 'rankingPage') { if(item.dataset.target === 'rankingPage') shouldBeActive=true; else if(item.dataset.target==='playPage') shouldBeActive=false; }
+                item.classList.toggle('active', shouldBeActive);
+                item.classList.toggle('text-gray-400', !shouldBeActive);
+            });
+        }
+        function setLoading(show) { loadingSpinner.style.display = show ? 'flex' : 'none'; }
+        
+        let messageTimer;
+        function showMessage(message, type = 'info') {
+            clearTimeout(messageTimer); const msgBox = document.getElementById('messageBox'); document.getElementById('messageText').textContent = message;
+            msgBox.className = 'fixed top-5 left-1/2 -translate-x-1/2 z-50 p-3 rounded-lg shadow-xl text-white text-sm font-medium';
+            if (type === 'success') msgBox.classList.add('bg-green-600'); else if (type === 'error') msgBox.classList.add('bg-red-600'); else msgBox.classList.add('bg-blue-600');
+            msgBox.classList.add('show');
+            messageTimer = setTimeout(() => msgBox.classList.remove('show'), 3000);
+        }
+
+        function showModal(modalId) { document.getElementById(modalId).classList.add('flex'); }
+        function hideModal(modalId) { document.getElementById(modalId).classList.remove('flex'); }
+        const formatCoins = (num) => (num || 0).toFixed(2);
+
+        function loadAppSettings() {
+            const unsub = onSnapshot(doc(db, "settings", "app"), (doc) => {
+                if (!doc.exists()) return; appSettings = doc.data();
+                document.getElementById('announcementText').textContent = appSettings.announcement || "Welcome to MRX TOURNAMENTS!";
+                document.getElementById('specialOfferImage').src = appSettings.specialOfferImage || "https://placehold.co/600x200/a855f7/ffffff?text=Special+Offer";
+                document.getElementById('supportContent').innerHTML = appSettings.supportInfo ? appSettings.supportInfo.replace(/\n/g, '<br>') : "<p>Contact info not available.</p>";
+                document.getElementById('referContent').innerHTML = appSettings.referText ? appSettings.referText.replace(/\n/g, '<br>') : "<p>Referral info not available.</p>";
+                document.getElementById('paymentQRCode').src = appSettings.qrCodeUrl || "https://placehold.co/300x300/ffffff/1e293b?text=QR+Code+Not+Set";
+                document.getElementById('paymentUpiId').textContent = appSettings.upiId || "UPI ID not set";
+            });
+            unsubscribers.push(unsub);
+        }
+
+        async function fetchJoinedTournamentIds(userId) {
+            try {
+                const q = query(collection(db, "users", userId, "joinedTournaments"));
+                const snapshot = await getDocs(q);
+                joinedTournamentIds = new Set(snapshot.docs.map(doc => doc.id));
+            } catch (e) {
+                console.error("Error fetching joined tournaments: ", e);
+            }
+        }
+
+        function loadTournaments() {
+            const q = query(collection(db, "tournaments"), orderBy("time", "asc"));
+            const unsub = onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('tournamentsList');
+                if (snapshot.empty) { list.innerHTML = `<p class="text-gray-400 text-center py-10">No live tournaments right now.</p>`; return; }
+                list.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const t = doc.data(), id = doc.id, participants = t.participantsCount || 0;
+                    const time = t.time ? t.time.toDate() : new Date();
+                    const hasJoined = joinedTournamentIds.has(id);
+                    let joinBtn;
+                    if (participants >= t.slots) { joinBtn = `<button class="w-full p-2 rounded-lg bg-gray-500 font-bold" disabled>Slots Full</button>`; }
+                    else if (hasJoined) { joinBtn = `<button class="w-full p-2 rounded-lg bg-indigo-800 font-bold" disabled>Already Joined</button>`; }
+                    else { joinBtn = `<button class="join-btn w-full p-2 rounded-lg btn-secondary font-bold" data-id="${id}" data-title="${t.title}" data-fee="${t.entryFee}">Join Now</button>`; }
+                    list.innerHTML += `<div class="card-bg rounded-lg shadow-lg overflow-hidden"><img src="${t.imageUrl || 'https://placehold.co/600x300/1e293b/ffffff?text=MRX'}" class="w-full h-32 object-cover"><div class="p-4"><h3 class="text-xl font-bold font-teko tracking-wide">${t.title}</h3><div class="flex justify-between items-center text-gray-300 text-sm my-2"><span><i class="fa-solid fa-calendar-alt mr-2"></i>${time.toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit'})}</span><span><i class="fa-solid fa-clock mr-2"></i>${time.toLocaleString('en-US',{hour:'numeric',minute:'numeric',hour12:true})}</span></div><div class="flex justify-between items-center my-3"><div><span class="text-xs text-gray-400">Prize</span><div class="text-lg font-bold text-yellow-300 flex items-center"><i class="fa-solid fa-coins mr-1"></i>${t.prizePool}</div></div><div><span class="text-xs text-gray-400">Entry</span><div class="text-lg font-bold text-green-300 flex items-center"><i class="fa-solid fa-coins mr-1"></i>${t.entryFee}</div></div></div><div class="my-3"><div class="flex justify-between text-xs text-gray-300 mb-1"><span>Slots</span><span>${participants}/${t.slots}</span></div><div class="w-full slot-progress-bg rounded-full h-2.5"><div class="slot-progress-fg h-2.5 rounded-full" style="width:${(participants/t.slots)*100}%"></div></div></div>${joinBtn}</div></div>`;
+                });
+                            }, (error) => { console.error("Error loading tournaments: ", error); });
+            unsubscribers.push(unsub);
+        }
+
+        function loadWallet(userId) {
+            const unsub = onSnapshot(doc(db, "users", userId), (doc) => {
+                if (!doc.exists()) return;
+                currentUserData = { id: doc.id, ...doc.data() };
+                const total = (currentUserData.joinMoney || 0) + (currentUserData.winMoney || 0);
+                ['navBalance', 'walletTotalBalance'].forEach(id => document.getElementById(id).textContent = formatCoins(total));
+                document.getElementById('walletJoinMoney').textContent = formatCoins(currentUserData.joinMoney);
+                document.getElementById('walletWinMoney').textContent = formatCoins(currentUserData.winMoney);
+                document.getElementById('withdrawableBalance').textContent = formatCoins(currentUserData.winMoney);
+                document.getElementById('accountUsername').textContent = currentUserData.username;
+                document.getElementById('accountEmail').textContent = currentUserData.email;
+                document.getElementById('statMatches').textContent = currentUserData.matchesPlayed || 0;
+                document.getElementById('statKills').textContent = currentUserData.totalKilled || 0;
+                document.getElementById('statWon').textContent = formatCoins(currentUserData.amountWon);
+                document.getElementById('userReferralCode').textContent = currentUserData.referralCode || 'Not Generated';
+            });
+            unsubscribers.push(unsub);
+        }
+        
+        function loadTransactionHistory(userId) {
+            const q = query(collection(db, "transactions"), where("userId", "==", userId), orderBy("timestamp", "desc"));
+            const unsub = onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('walletHistoryContainer');
+                if (snapshot.empty) { container.innerHTML = `<i class="fa-solid fa-clock-rotate-left text-4xl mb-3"></i><p>No transactions yet.</p>`; container.className = 'text-center text-gray-400 p-10 card-bg rounded-lg'; return; }
+                container.innerHTML = ''; container.className = '';
+                snapshot.forEach(doc => {
+                    const tx = doc.data(), isDeposit = tx.type === 'deposit', isApproved = tx.status === 'approved', color = isDeposit ? (isApproved ? 'text-green-400' : 'text-yellow-400') : (isApproved ? 'text-red-400' : 'text-yellow-400'), sign = isDeposit ? '+' : '-', date = tx.timestamp.toDate().toLocaleString('en-US', { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' });
+                    container.innerHTML += `<div class="bg-gray-700 p-3 rounded-lg mb-2 flex justify-between items-center"><div><span class="block font-semibold capitalize">${tx.type} ${isApproved ? (isDeposit ? 'Approved' : 'Complete') : 'Pending'}</span><span class="text-xs text-gray-400">${date}</span></div><span class="font-bold text-lg ${color}">${sign} ${tx.amount}</span></div>`;
+                });
+            }, (error) => { console.error("Transaction index error:", error); });
+            unsubscribers.push(unsub);
+        }
+        
+        function loadRanking() {
+            const q = query(collection(db, "users"), orderBy("winMoney", "desc"), limit(20));
+            const unsub = onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('rankingList');
+                if (snapshot.empty) { list.innerHTML = `<p class="text-gray-400 text-center py-10">Ranking is not available yet.</p>`; return; }
+                list.innerHTML = ''; let rank = 1;
+                snapshot.forEach(doc => {
+                    const user = doc.data(), rankColor = rank === 1 ? 'text-yellow-300' : (rank === 2 ? 'text-gray-300' : (rank === 3 ? 'text-orange-400' : 'text-gray-400'));
+                    list.innerHTML += `<div class="card-bg p-4 rounded-lg flex items-center justify-between"><div class="flex items-center"><span class="text-xl font-bold w-8 text-center ${rankColor}">#${rank}</span><span class="ml-4 font-semibold">${user.username}</span></div><div class="font-bold text-lg text-yellow-300 flex items-center"><i class="fa-solid fa-coins mr-2"></i>${formatCoins(user.winMoney)}</div></div>`;
+                    rank++;
+                });
+            }, (error) => { console.error("Ranking index error:", error); });
+            unsubscribers.push(unsub);
+        }
+        
+        function loadMyMatches(userId) {
+            const list = document.getElementById('myMatchesList');
+            const q = query(collection(db, "users", userId, "joinedTournaments"), orderBy("time", "desc"));
+            const unsub = onSnapshot(q, async (snapshot) => {
+                if (snapshot.empty) { list.innerHTML = `<p class="text-gray-400 text-center py-10">You haven't joined any matches yet.</p>`; return; }
+                list.innerHTML = '';
+                for (const docSnap of snapshot.docs) {
+                    const tournamentSnap = await getDoc(doc(db, "tournaments", docSnap.id));
+                    if (!tournamentSnap.exists()) continue;
+                    const t = tournamentSnap.data();
+                    const roomInfoHtml = (t.roomID && t.roomPassword) ? `<div class="mt-4 pt-4 border-t border-gray-600"><h4 class="text-sm text-green-300 font-semibold mb-2">Room Details</h4><div class="grid grid-cols-2 gap-2 text-center"><div class="bg-gray-800 p-2 rounded"><span class="text-xs text-gray-400">ID</span><span class="block text-lg font-bold">${t.roomID}</span></div><div class="bg-gray-800 p-2 rounded"><span class="text-xs text-gray-400">Pass</span><span class="block text-lg font-bold">${t.roomPassword}</span></div></div></div>` : `<div class="mt-4 pt-4 border-t border-gray-600 text-center text-gray-400 text-sm"><i class="fa-solid fa-clock mr-1"></i>Room details will appear here.</div>`;
+                    list.innerHTML += `<div class="card-bg rounded-lg shadow-lg p-4"><h3 class="text-xl font-bold font-teko">${t.title}</h3><div class="flex justify-between text-sm my-2"><span><i class="fa-solid fa-calendar-alt mr-2"></i>${t.time.toDate().toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit'})}</span><span><i class="fa-solid fa-clock mr-2"></i>${t.time.toDate().toLocaleString('en-US',{hour:'numeric',minute:'numeric',hour12:true})}</span></div>${roomInfoHtml}</div>`;
+                }
+            }, (error) => { console.error("My Matches index error:", error); });
+            unsubscribers.push(unsub);
+        }
+
+        async function attachAllListeners(userId) { await fetchJoinedTournamentIds(userId); loadAppSettings(); loadTournaments(); loadWallet(userId); loadTransactionHistory(userId); loadRanking(); loadMyMatches(userId); }
+        function detachAllListeners() { unsubscribers.forEach(unsub => unsub()); unsubscribers = []; }
+
+        onAuthStateChanged(auth, async (user) => {
+            setLoading(true); detachAllListeners();
+            if (user) { currentUserId = user.uid; await attachAllListeners(currentUserId); showPage('mainPage'); showPage('playPage', true); } 
+            else { currentUserId = null; currentUserData = null; joinedTournamentIds.clear(); showPage('authPage'); showPage('loginSubPage', true); }
+            setLoading(false);
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', async e => {
+            e.preventDefault(); setLoading(true);
+            const username = document.getElementById('registerName').value, email = document.getElementById('registerEmail').value, password = document.getElementById('registerPassword').value;
+            try {
+                const { user } = await createUserWithEmailAndPassword(auth, email, password);
+                const ownRefCode = username.toUpperCase().replace(/\s/g, '').substring(0, 6) + Math.floor(100 + Math.random() * 900);
+                await setDoc(doc(db, "users", user.uid), { username, email, joinMoney: 0, winMoney: 0, matchesPlayed: 0, totalKilled: 0, amountWon: 0, referralCode: ownRefCode, createdAt: serverTimestamp() });
+                showMessage("Registration successful!", "success");
+            } catch (error) { showMessage(error.message, "error"); } finally { setLoading(false); }
+        });
+
+        document.getElementById('joinForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); setLoading(true);
+            const tournamentId = document.getElementById('joinTournamentId').value, gameName = document.getElementById('joinGameName').value;
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const tRef = doc(db, "tournaments", tournamentId), uRef = doc(db, "users", currentUserId), pRef = doc(db, "tournaments", tournamentId, "participants", currentUserId), userJoinedRef = doc(db, "users", currentUserId, "joinedTournaments", tournamentId);
+                    const tSnap = await transaction.get(tRef), uSnap = await transaction.get(uRef), pSnap = await transaction.get(pRef);
+                    if (!tSnap.exists() || !uSnap.exists()) throw new Error("Data not found.");
+                    const tData = tSnap.data(), uData = uSnap.data(), fee = tData.entryFee;
+                    if ((tData.participantsCount || 0) >= tData.slots) throw new Error("Tournament is full.");
+                    if ((uData.joinMoney || 0) + (uData.winMoney || 0) < fee) throw new Error("Insufficient coins.");
+                    if (pSnap.exists()) throw new Error("You have already joined.");
+                    
+                    let newJoin = uData.joinMoney || 0, newWin = uData.winMoney || 0;
+                    if (newJoin >= fee) newJoin -= fee; else { const rem = fee - newJoin; newJoin = 0; newWin -= rem; }
+                    
+                    transaction.set(pRef, { userId: currentUserId, username: uData.username, gameName, joinedAt: Timestamp.now() });
+                    transaction.set(userJoinedRef, { tournamentId, title: tData.title, time: tData.time });
+                    transaction.update(tRef, { participantsCount: (tData.participantsCount || 0) + 1 });
+                    transaction.update(uRef, { joinMoney: newJoin, winMoney: newWin, gameName, matchesPlayed: (uData.matchesPlayed || 0) + 1 });
+                });
+                joinedTournamentIds.add(tournamentId); loadTournaments(); showMessage("Successfully joined!", "success");
+            } catch (error) { showMessage(error.message, "error"); } 
+            finally { setLoading(false); hideModal('joinModal'); }
+        });
+        
+        appContainer.addEventListener('click', e => {
+            const navBtn = e.target.closest('.nav-button'), item = e.target.closest('.nav-item'), back = e.target.closest('.nav-back');
+            if(navBtn) { showPage('mainPage'); showPage(navBtn.dataset.target, true); }
+            if(item) { if(item.dataset.target === 'accountPage') showPage('accountPage'); else { showPage('mainPage'); showPage(item.dataset.target, true); } }
+            if(back) { const target = document.getElementById(back.dataset.target), isSub = target.parentElement.id === 'mainContentContainer'; if(isSub) showPage('mainPage'); showPage(back.dataset.target, isSub); }
+        });
+        document.getElementById('loginForm').addEventListener('submit', async e => { e.preventDefault(); setLoading(true); try { await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value); } catch (error) { showMessage(error.message, "error"); } finally { setLoading(false); } });
+        document.getElementById('showRegisterLink').addEventListener('click', e => { e.preventDefault(); showPage('registerSubPage', true); });
+        document.getElementById('showLoginLink').addEventListener('click', e => { e.preventDefault(); showPage('loginSubPage', true); });
+        document.querySelectorAll('#logoutButton').forEach(btn => btn.addEventListener('click', () => signOut(auth)));
+        document.getElementById('showAddCoinsPage').addEventListener('click', () => showPage('addCoinsPage'));
+        document.getElementById('showWithdrawPage').addEventListener('click', () => showPage('withdrawPage'));
+        document.querySelectorAll('.add-amount-btn').forEach(btn => btn.addEventListener('click', e => { const input = document.getElementById('addAmount'); input.value = (parseInt(input.value) || 0) + parseInt(e.currentTarget.dataset.amount); }));
+        document.getElementById('goToPayBtn').addEventListener('click', () => { const amount = parseInt(document.getElementById('addAmount').value); if (!amount || amount < 10) { showMessage("Min amount is 10.", "error"); return; } document.getElementById('paymentAmount').textContent = `${amount} Coins`; document.getElementById('paymentConfirmForm').dataset.amount = amount; document.getElementById('transactionId').value = ''; showPage('scanToPayPage'); });
+        document.getElementById('paymentConfirmForm').addEventListener('submit', async e => { e.preventDefault(); setLoading(true); const amount = parseInt(e.currentTarget.dataset.amount), txnId = document.getElementById('transactionId').value; if (txnId.length < 12) { showMessage("Enter valid 12-digit UTR.", "error"); setLoading(false); return; } try { await addDoc(collection(db, "transactions"), { userId: currentUserId, username: currentUserData.username, email: currentUserData.email, amount, type: "deposit", status: "pending", transactionId: txnId, timestamp: serverTimestamp() }); showMessage("Deposit request submitted!", "success"); showPage('mainPage'); showPage('walletPage', true); } catch (error) { showMessage(error.message, "error"); } finally { setLoading(false); } });
+        document.getElementById('withdrawForm').addEventListener('submit', async e => { e.preventDefault(); const amount = parseInt(document.getElementById('withdrawAmount').value), upiId = document.getElementById('withdrawUpi').value; if (amount > currentUserData.winMoney) { showMessage("Insufficient winning coins.", "error"); return; } if (amount < 50) { showMessage("Min withdrawal is 50.", "error"); return; } setLoading(true); try { await updateDoc(doc(db, "users", currentUserId), { winMoney: currentUserData.winMoney - amount }); await addDoc(collection(db, "transactions"), { userId: currentUserId, username: currentUserData.username, email: currentUserData.email, amount, type: "withdraw", status: "pending", upiId, timestamp: serverTimestamp() }); showMessage("Withdrawal request submitted!", "success"); showPage('mainPage'); showPage('walletPage', true); } catch (error) { showMessage(error.message, "error"); } finally { setLoading(false); } });
+        document.getElementById('tournamentsList').addEventListener('click', e => { if (!e.target.classList.contains('join-btn')) return; const { id, title, fee } = e.target.dataset; document.getElementById('joinModalTitle').textContent = `Join "${title}"`; document.getElementById('joinModalTourneyName').textContent = title; document.getElementById('joinModalFee').textContent = `${fee} Coins`; document.getElementById('joinGameName').value = currentUserData.gameName || ''; document.getElementById('joinTournamentId').value = id; showModal('joinModal'); });
+        document.querySelectorAll('.modal-close').forEach(btn => btn.addEventListener('click', () => hideModal(btn.dataset.target)));
+        document.getElementById('copyReferralCodeBtn').addEventListener('click', () => { const code = document.getElementById('userReferralCode').textContent; navigator.clipboard.writeText(code).then(() => showMessage("Code copied!", "success"), () => showMessage("Could not copy.", "error")); });
+    </script>
+</body>
+</html>
